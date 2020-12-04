@@ -1,0 +1,42 @@
+// Construire un front basique pr accéder dashboard User (pvr se co et se déco…)
+// Ajouter private route
+//	Ajouter form requête post => créer un rider dans ce compte en utilisant _id du current user (reference populate)
+//	Créer API pr get tous les riders d’un user (useEffect dispatch cette action) puis les mapper dans le dashboard
+//	Ajouter modals put et delete rider
+//	Ajouter formulaire(s) conditionnel(s) (cases à cocher, qui selon vont changer apparence dashboard user => si « je suis proprio » cochée alors dans espace affiché module « ajouter un cheval que j’ai en pension ». Puis radio button entre « je suis seul » ou « j’ai famille » pr savoir si on répète nom du cavalier dans maping rider(s) du compte ou pas (on affiche toujours le module pr ajout de horses et de riders, car compte single peut devenir famille).
+//	Ajouter accès admin (créer route /admin-dashboard): Get all riders et Search => Put leurs infos surtt: status et dates abo et cotis (ce qui définit que le compte est validé)
+//  Customer dashboard: ajouter affichage date fin abo, date fin cotis (couleur selon deadline, orange si une semaine avant)
+//	Teacher dashboard: espace moniteur (GET tous ses riders)
+//	Admin CRUD public chevaux (ajouter component admin manage-horses où liste chevaux et formm pr add horse avec select pr status)
+//	Après création d'un rider sa date doit etre rouge autommatiquement (check moment et moment from now pr toutes les dates d'abo)
+•	Planning: POST Créer séances selon lesson schema, avec date-fns (je dois remplir collection Horses, via CRUD admin ManageHorses: Our horses/Private horses/Hybrid)
+•	Planning: GET séances d'un certain jour. A intégrer dans comptes Teacher et Admin (puis plus tard proprio, palefrenier...)
+•	Planning: PUT et DELETE séance (teacher doit pvr modifier et delete que ses lessons)
+•	Dans client-dashboard, permettre au rider(s) de voir quel cheval il monte à son prochain cours (voir note iphone pr comment faire le get nécessaire)
+•	Axios front à check pr enlever root localhost des requêtes API
+
+    ! Riders => Pas de status pending. La vérification du compte se fait juste selon si date de fin d'abo a été renseigné (car cela veut dire que paiement reçu). Puis pr savoir s'il y'a des comptes zombies filtrer riders (celui avec date d'abo la plus récente) de comptes qui ont dernier deadline de paiement plus de 60 jours date actuelle.
+    NB: Les comptes autres que comptes clients seront créés manuellement pr éviter risques et erreurs.
+    ! Est-ce que je laisse hash des passwords ? Risque de rendre assistance plus compliquée. Est-ce que ça aide pr sécurité ?
+    J'ai déjà installé material ui core et icons
+Secondaires :
+
+•	If user 1 rider (après ajout, suppression, etc) alors === solorider sinon family et vice versa
+//	Admin ManageUsers.js nmbre teachers, riders, pending, validated?... avec CRUD. Pouvoir voir les riders des comptes (populate ref). Et permettre suppression de users' accounts et suppression de ses riders avec
+•	Admin ManageRiders.js avoir possiblité, en plus de search, de trier selon prof (select list) et selon des filters sur dates de paiements (select input avec default: get all, get ceux qui doivent payer lessons, get ceux annual fee, get comptes zombies => get si deadline dépassée de 40 jours
+•	Améliorer affichage des dates (moment js (les créateurs ne recommandent plus vraiment de l'utiliser, à voir..))
+•	Me renseigner concernant useEffect dependencies (notammenent l'erreur dans cas où teacher se co par login-customer et se fait rediriger)
+•	Pr accès admin, les listes GET: permettre accordéon pr chaque pr éviter d'avoir trop d'infos et pr scroller plus rapidement (garder juste prénom et nom de famille visibles par défault)
+•	! Pas de bouton Register sur le site mais juste un url /register à envoyer aux clients pr éviter que n'importe qui sur le site crée des comptes
+•	UX: quand client compte solo se connecte => bonjour nominatif avec que ses infos. Compte family: Bonjour sans nom puis map de ses riders.
+•	Espace proprio (ajouter module d'ajout de cheval et les CRUD nécessaires)
+•	Ajouter affichage date fin abo et cotis des cavaliers pr leur moniteur pr qu'ils les relancent (couleur nom des riders selon deadline de leur abo)
+•	Permettre au proprios (ceux qui ont horse dans dans leur user account) de voir planning des cours aussi
+•	Permette moniteur de mettre feedback et points à travailler à cavalier par séance (ex: "Great balance on the jumps but keep in my mind to keep your hands and heels lower.")
+•	UX de select inputs: https://react-select.com/home (voir si y'a mieux ex: final form ou material UI) 
+•	Ajouter champ dynamique pr création lesson (selon chevaux, carrière dispo afficher ou pas dans dropdown)
+•	Ajouter possibilité de changer infos : mot de passe et/ou autres (sauf email)
+•	Ajouter possibilité de récupérer mot de passe par email
+•	Créer un fichier Modal.js et Modal.css que je réutilise là où faut pr éviter code dupliqué (registe, login, edit...). Il faudra que je fasse un tour complet pr minimiser le duplicate code.
+•	Rajouter au modal delete : https://scottpdawson.com/simple-css-for-disabled-buttons/ comme MongoDB
+•	Créer une blacklist d'adresses mails en cas de spammers ?
